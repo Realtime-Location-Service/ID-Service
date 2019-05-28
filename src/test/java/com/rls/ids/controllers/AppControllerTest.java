@@ -17,10 +17,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserControllerTest {
+public class AppControllerTest {
 
     @Autowired
     private MockMvc mvc;
+
+    // TODO test cases
 
     @Test
     public void getHello() throws Exception {
