@@ -41,7 +41,7 @@ locations and metadata, etc.
         	"userId": "test2"
         }
 
-2. **GET** /api/v1/user
+2. **GET** /api/v1/user/resolve
    
    **Description:** Endpoint to retrieve all users for a company/AppKey.
    
@@ -50,18 +50,13 @@ locations and metadata, etc.
    **ResponseBody:**
    
        {
-           "userId": "08024cf0-282e-41e2-9d44-4efb9ea4c641",
+           "userId": "893caacf-3592-4682-af91-de8639f9b681",
            "role": "admin",
-           "appKey": "9Of0u659BiyVAmJ/58yzrw==",
-           "companyId": "f62d939f-1c4a-478f-8dfc-f3e83aea233c",
+           "appKey": "2o4oyirltg1pt1IrNnMhEQ==",
+           "companyId": "0435693e-7d86-4539-bfe9-ef1b232ec7b3",
            "subordinates": [
                {
-                   "createdAt": "2019-05-28",
-                   "updatedAt": "2019-05-28",
-                   "userId": "test",
-                   "role": "user",
-                   "appKey": null,
-                   "cid": "f62d939f-1c4a-478f-8dfc-f3e83aea233c"
+                   "userId": "test"
                }
            ]
        }

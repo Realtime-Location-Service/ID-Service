@@ -1,9 +1,11 @@
 package com.rls.ids.entities;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 

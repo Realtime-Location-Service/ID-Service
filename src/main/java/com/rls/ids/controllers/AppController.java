@@ -1,14 +1,14 @@
 package com.rls.ids.controllers;
 
 import com.rls.ids.constants.Role;
+import com.rls.ids.entities.Company;
+import com.rls.ids.entities.User;
 import com.rls.ids.exceptions.InvalidAppKeyException;
 import com.rls.ids.exceptions.MissingHeaderException;
 import com.rls.ids.exceptions.MissingRequiredFieldException;
-import com.rls.ids.entities.Company;
-import com.rls.ids.entities.User;
 import com.rls.ids.models.CompanyResponseModel;
 import com.rls.ids.models.SignUpRequestModel;
-import com.rls.ids.models.UserResponseModel;
+import com.rls.ids.models.UserSignUpResponseModel;
 import com.rls.ids.repositories.CompanyRepository;
 import com.rls.ids.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.KeyGenerator;
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.UUID;
@@ -85,14 +84,14 @@ public class AppController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @RequestMapping(path="user", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) // Map ONLY POST Requests
-    public ResponseEntity<UserResponseModel> addNewUser(@RequestParam String appKey) {
+    @RequestMapping(path="user/resolve", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) // Map ONLY POST Requests
+    public ResponseEntity<UserSignUpResponseModel> addNewUser(@RequestParam String appKey) {
         User admin = userRepository.getUserByAppKey(appKey);
 
         if (admin == null)
             throw new InvalidAppKeyException(appKey+" is invalid!");
 
-        UserResponseModel model = new UserResponseModel();
+        UserSignUpResponseModel model = new UserSignUpResponseModel();
         model.setCompanyId(admin.getCid());
         model.setRole(admin.getRole());
         model.setAppKey(admin.getAppKey());
