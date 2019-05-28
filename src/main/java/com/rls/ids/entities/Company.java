@@ -2,14 +2,15 @@ package com.rls.ids.entities;
 
 import jdk.jfr.Timestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
-import java.util.List;
 
 @Entity
 @Validated
@@ -21,6 +22,7 @@ public class Company extends BaseEntity {
     private String cid;
 
     @Column(unique = true, nullable = false)
+    @NotBlank
     private String domain;
 
     private String name;

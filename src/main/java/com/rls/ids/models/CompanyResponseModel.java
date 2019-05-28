@@ -2,12 +2,18 @@ package com.rls.ids.models;
 
 import com.rls.ids.entities.User;
 
-import java.util.List;
-
 public class CompanyResponseModel {
     private String domain;
     private String companyId;
     private User admin;
+
+    public CompanyResponseModel() { }
+
+    public CompanyResponseModel(String domain, String companyId, User admin) {
+        this.domain = domain;
+        this.companyId = companyId;
+        this.admin = admin;
+    }
 
     public String getCompanyId() {
         return companyId;

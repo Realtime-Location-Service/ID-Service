@@ -12,6 +12,15 @@ public class UserSignUpResponseModel {
     private String companyId;
     private List<SubordinateModel> subordinates;
 
+    public UserSignUpResponseModel(){}
+
+    public UserSignUpResponseModel(String userId, String role, String appKey, String companyId) {
+        this.userId = userId;
+        this.role = role;
+        this.appKey = appKey;
+        this.companyId = companyId;
+    }
+
     public String getUserId() {
         return userId;
     }

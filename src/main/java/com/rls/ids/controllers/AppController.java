@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.KeyGenerator;
+import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.UUID;
@@ -40,7 +41,7 @@ public class AppController {
     }
 
     @RequestMapping(path="company/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE) // Map ONLY POST Requests
-    public ResponseEntity<CompanyResponseModel> companySignUp(@RequestBody Company company, @RequestHeader("SecretKey") String secretKey) throws NoSuchAlgorithmException {
+    public ResponseEntity<CompanyResponseModel> companySignUp(@Valid @RequestBody Company company, @RequestHeader("SecretKey") String secretKey) throws NoSuchAlgorithmException {
         if (isInValidRequest(secretKey))
             throw new MissingHeaderException(secretKey + " is missing or invalid.");
         if (isInValidRequest(company.getDomain()))
@@ -51,17 +52,11 @@ public class AppController {
         KeyGenerator generator = KeyGenerator.getInstance("AES");
         generator.init(128); // The AES key size in number of bits
 
-        User admin = new User();
+        User admin = new User(UUID.randomUUID().toString(), company.getCid(), Role.ADMIN);
         admin.setAppKey(Base64.getEncoder().encodeToString(generator.generateKey().getEncoded()));
-        admin.setCid(company.getCid());
-        admin.setRole(Role.ADMIN);
-        admin.setUserId(UUID.randomUUID().toString());
         userRepository.save(admin);
 
-        CompanyResponseModel companyResponseModel = new CompanyResponseModel();
-        companyResponseModel.setAdmin(admin);
-        companyResponseModel.setCompanyId(company.getCid());
-        companyResponseModel.setDomain(company.getDomain());
+        CompanyResponseModel companyResponseModel = new CompanyResponseModel(company.getDomain(), company.getCid(), admin);
         return new ResponseEntity<>(companyResponseModel, HttpStatus.OK);
     }
 
@@ -75,27 +70,21 @@ public class AppController {
         if (admin == null)
             throw new InvalidAppKeyException(signUpModel.getAppKey()+" is invalid!");
 
-        User user = new User();
-        user.setCid(admin.getCid());
-        user.setRole(Role.USER);
-        user.setUserId(signUpModel.getUserId());
+        User user = new User(signUpModel.getUserId(), admin.getCid(), Role.USER);
         userRepository.save(user);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @RequestMapping(path="user/resolve", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE) // Map ONLY POST Requests
-    public ResponseEntity<UserSignUpResponseModel> addNewUser(@RequestParam String appKey) {
+    @RequestMapping(path="user/resolve", method = RequestMethod.GET) // Map ONLY POST Requests
+    public ResponseEntity<UserSignUpResponseModel> resolveUser(@RequestParam String appKey) {
         User admin = userRepository.getUserByAppKey(appKey);
 
         if (admin == null)
             throw new InvalidAppKeyException(appKey+" is invalid!");
 
-        UserSignUpResponseModel model = new UserSignUpResponseModel();
-        model.setCompanyId(admin.getCid());
-        model.setRole(admin.getRole());
-        model.setAppKey(admin.getAppKey());
-        model.setUserId(admin.getUserId());
+        UserSignUpResponseModel model = new UserSignUpResponseModel(admin.getUserId(), admin.getRole(),
+                admin.getAppKey(), admin.getCid());
         model.setSubordinates(userRepository.findUsersByCidAndRole(admin.getCid(), Role.USER));
         return new ResponseEntity<>(model, HttpStatus.OK);
     }

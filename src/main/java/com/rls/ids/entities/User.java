@@ -27,6 +27,13 @@ public class User extends BaseEntity{
     @NotNull
     private String cid;
 
+    public User() {}
+    public User(String userId, String cid, String role) {
+        this.userId = userId;
+        this.cid = cid;
+        this.role = role;
+    }
+
     public String getUserId() {
         return userId;
     }
