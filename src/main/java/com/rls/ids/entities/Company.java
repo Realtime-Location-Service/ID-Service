@@ -1,14 +1,14 @@
-package com.rls.ids.models;
+package com.rls.ids.entities;
 
+import jdk.jfr.Timestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -20,15 +20,12 @@ public class Company extends BaseEntity {
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String cid;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String domain;
 
     private String name;
-    @LastModifiedDate
+    @Timestamp
     private Date deletedAt;
-
-    @OneToMany(mappedBy = "cid", cascade = CascadeType.ALL)
-    private List<User> users;
 
     public String getDomain() {
         return domain;
@@ -60,13 +57,5 @@ public class Company extends BaseEntity {
 
     public void setCid(String cid) {
         this.cid = cid;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 }
