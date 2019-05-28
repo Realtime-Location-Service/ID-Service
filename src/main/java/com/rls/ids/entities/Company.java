@@ -9,14 +9,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 @Entity
 @Validated
 public class Company extends BaseEntity {
     @Id
-    @NotNull
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String cid;

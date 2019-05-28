@@ -1,7 +1,11 @@
 package com.rls.ids.models;
 
+import javax.validation.constraints.NotBlank;
+
 public class SignUpRequestModel {
+    @NotBlank
     private String appKey;
+    @NotBlank
     private String userId;
 
     public String getAppKey() {

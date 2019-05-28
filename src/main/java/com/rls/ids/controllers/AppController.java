@@ -5,7 +5,6 @@ import com.rls.ids.entities.Company;
 import com.rls.ids.entities.User;
 import com.rls.ids.exceptions.InvalidAppKeyException;
 import com.rls.ids.exceptions.MissingHeaderException;
-import com.rls.ids.exceptions.MissingRequiredFieldException;
 import com.rls.ids.models.CompanyResponseModel;
 import com.rls.ids.models.SignUpRequestModel;
 import com.rls.ids.models.UserSignUpResponseModel;
@@ -42,10 +41,8 @@ public class AppController {
 
     @RequestMapping(path="company/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE) // Map ONLY POST Requests
     public ResponseEntity<CompanyResponseModel> companySignUp(@Valid @RequestBody Company company, @RequestHeader("SecretKey") String secretKey) throws NoSuchAlgorithmException {
-        if (isInValidRequest(secretKey))
+        if (isInvalidRequest(secretKey) && secretKey.equals(this.secretKey))
             throw new MissingHeaderException(secretKey + " is missing or invalid.");
-        if (isInValidRequest(company.getDomain()))
-            throw new MissingRequiredFieldException("domain is missing or invalid.");
 
         companyRepository.save(company);
 
@@ -61,10 +58,7 @@ public class AppController {
     }
 
     @RequestMapping(path="user/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE) // Map ONLY POST Requests
-    public ResponseEntity<User> userSignUp(@RequestBody SignUpRequestModel signUpModel) {
-        if (isInValidRequest(signUpModel.getUserId()))
-            throw new MissingRequiredFieldException("userId is missing or invalid.");
-
+    public ResponseEntity<User> userSignUp(@Valid @RequestBody SignUpRequestModel signUpModel) {
         User admin = userRepository.getUserByAppKey(signUpModel.getAppKey());
 
         if (admin == null)
@@ -78,6 +72,9 @@ public class AppController {
 
     @RequestMapping(path="user/resolve", method = RequestMethod.GET) // Map ONLY POST Requests
     public ResponseEntity<UserSignUpResponseModel> resolveUser(@RequestParam String appKey) {
+        if (isInvalidRequest(appKey))
+            throw new MissingHeaderException(appKey + " is missing or invalid.");
+
         User admin = userRepository.getUserByAppKey(appKey);
 
         if (admin == null)
@@ -89,7 +86,7 @@ public class AppController {
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
-    private boolean isInValidRequest(String value) {
+    private boolean isInvalidRequest(String value) {
         if (value == null)
             return true;
         return value.isBlank();
