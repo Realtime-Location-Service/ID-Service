@@ -41,7 +41,7 @@ locations and metadata, etc.
         	"userId": "test2"
         }
 
-2. **GET** /api/v1/user/resolve
+3. **GET** /api/v1/user/resolve
    
    **Description:** Endpoint to retrieve all users for a company/AppKey.
    
