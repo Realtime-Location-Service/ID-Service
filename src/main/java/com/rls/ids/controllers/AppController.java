@@ -41,7 +41,7 @@ public class AppController {
 
     @RequestMapping(path="company/signup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE) // Map ONLY POST Requests
     public ResponseEntity<CompanyResponseModel> companySignUp(@Valid @RequestBody Company company, @RequestHeader("SecretKey") String secretKey) throws NoSuchAlgorithmException {
-        if (isInvalidRequest(secretKey) && secretKey.equals(this.secretKey))
+        if (isInvalid(secretKey) && !secretKey.equals(this.secretKey))
             throw new MissingHeaderException(secretKey + " is missing or invalid.");
 
         companyRepository.save(company);
@@ -72,7 +72,7 @@ public class AppController {
 
     @RequestMapping(path="user/resolve", method = RequestMethod.GET) // Map ONLY POST Requests
     public ResponseEntity<UserSignUpResponseModel> resolveUser(@RequestParam String appKey) {
-        if (isInvalidRequest(appKey))
+        if (isInvalid(appKey))
             throw new MissingHeaderException(appKey + " is missing or invalid.");
 
         User admin = userRepository.getUserByAppKey(appKey);
@@ -86,7 +86,7 @@ public class AppController {
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
 
-    private boolean isInvalidRequest(String value) {
+    private boolean isInvalid(String value) {
         if (value == null)
             return true;
         return value.isBlank();
