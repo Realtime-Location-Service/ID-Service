@@ -1,7 +1,7 @@
 package com.rls.ids.repositories;
 
 import com.rls.ids.converters.RequestParamsToSQLConverter;
-import com.rls.ids.models.User;
+import com.rls.ids.entities.User;
 import org.springframework.util.MultiValueMap;
 
 import javax.persistence.EntityManager;

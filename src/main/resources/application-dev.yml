@@ -1,5 +1,10 @@
 server:
   port: 9090
+  servlet:
+    context-path: "/api/v1"
+
+application:
+  secretKey: "dHepoR82!e#"
 
 spring:
   data:
@@ -18,6 +23,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
 logging:
   level:
     org:

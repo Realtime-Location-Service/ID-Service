@@ -17,12 +17,14 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserControllerIT {
+public class AppControllerIT {
 
     @LocalServerPort
     private int port;
 
     private URL base;
+
+    // TODO test cases
 
     @Autowired
     private TestRestTemplate template;

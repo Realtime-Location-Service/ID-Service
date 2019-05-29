@@ -1,5 +1,7 @@
-package com.rls.ids.models;
+package com.rls.ids.entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -10,9 +12,9 @@ import java.sql.Date;
 @MappedSuperclass
 @EntityListeners({AuditingEntityListener.class})
 abstract class BaseEntity {
-    @CreatedDate
+    @CreationTimestamp
     private Date createdAt;
-    @LastModifiedDate
+    @UpdateTimestamp
     private Date updatedAt;
 
     public Date getCreatedAt() {
