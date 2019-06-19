@@ -1,4 +1,4 @@
-FROM store/oracle/serverjre:8
+FROM openjdk:13-jdk-alpine
 VOLUME /tmp
 ARG DEPENDENCY=target/dependency
 COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
