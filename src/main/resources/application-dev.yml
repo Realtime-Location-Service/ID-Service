@@ -15,6 +15,7 @@ spring:
     url: jdbc:mysql://localhost:3306/rlsstore
     username: rls
     password: 12345678
+    initializationMode: always
   jpa:
     hibernate:
       ddl-auto: update

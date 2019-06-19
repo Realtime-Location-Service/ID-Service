@@ -5,6 +5,7 @@ import com.rls.ids.entities.Company;
 import com.rls.ids.entities.User;
 import com.rls.ids.exceptions.InvalidAppKeyException;
 import com.rls.ids.exceptions.MissingHeaderException;
+import com.rls.ids.exceptions.MissingRequestParameterException;
 import com.rls.ids.models.CompanyResponseModel;
 import com.rls.ids.models.SignUpRequestModel;
 import com.rls.ids.models.UserSignUpResponseModel;
@@ -73,7 +74,7 @@ public class AppController {
     @RequestMapping(path="user/resolve", method = RequestMethod.GET) // Map ONLY POST Requests
     public ResponseEntity<UserSignUpResponseModel> resolveUser(@RequestParam String appKey) {
         if (isInvalid(appKey))
-            throw new MissingHeaderException(appKey + " is missing or invalid.");
+            throw new MissingRequestParameterException(appKey + " is missing or invalid.");
 
         User admin = userRepository.getUserByAppKey(appKey);
 
