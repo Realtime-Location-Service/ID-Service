@@ -60,11 +60,11 @@ dependencies {
     // Use MySQL Connector-J
     compile 'mysql:mysql-connector-java'
 
+    compile "org.flywaydb:flyway-core:5.2.4"
+
     implementation("org.springframework.data:spring-data-envers")
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.9.7")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.9.7")
-    
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     testCompile("junit:junit")
     testCompile("org.springframework.boot:spring-boot-starter-test")

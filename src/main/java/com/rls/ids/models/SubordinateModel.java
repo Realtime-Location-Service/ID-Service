@@ -1,17 +1,19 @@
 package com.rls.ids.models;
 
+import com.rls.ids.entities.User;
+
 public class SubordinateModel {
-    private String userId;
+    private User user;
 
-    SubordinateModel(String userId) {
-        this.userId = userId;
+    SubordinateModel(User user) {
+        this.user = user;
     }
 
-    public String getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

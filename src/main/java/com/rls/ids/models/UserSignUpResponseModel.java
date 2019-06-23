@@ -9,12 +9,12 @@ public class UserSignUpResponseModel {
     private String userId;
     private String role;
     private String appKey;
-    private String companyId;
+    private int companyId;
     private List<SubordinateModel> subordinates;
 
     public UserSignUpResponseModel(){}
 
-    public UserSignUpResponseModel(String userId, String role, String appKey, String companyId) {
+    public UserSignUpResponseModel(String userId, String role, String appKey, int companyId) {
         this.userId = userId;
         this.role = role;
         this.appKey = appKey;
@@ -51,14 +51,14 @@ public class UserSignUpResponseModel {
 
     public void setSubordinates(List<User> subordinates) {
         this.subordinates = new LinkedList<>();
-        subordinates.forEach((user -> this.subordinates.add(new SubordinateModel(user.getUserId()))));
+        subordinates.forEach((user -> this.subordinates.add(new SubordinateModel(user))));
     }
 
-    public String getCompanyId() {
+    public int getCompanyId() {
         return companyId;
     }
 
-    public void setCompanyId(String companyId) {
+    public void setCompanyId(int companyId) {
         this.companyId = companyId;
     }
 }

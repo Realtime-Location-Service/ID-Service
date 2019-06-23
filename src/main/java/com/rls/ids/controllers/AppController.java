@@ -45,14 +45,17 @@ public class AppController {
         if (isInvalid(secretKey) && !secretKey.equals(this.secretKey))
             throw new MissingHeaderException(secretKey + " is missing or invalid.");
 
-        companyRepository.save(company);
+        company.setCid(UUID.randomUUID().toString());
+        company = companyRepository.saveAndFlush(company);
+        // Retrieve the saved company
+//        company = companyRepository.getCompanyByCid(company.getCid());
 
         KeyGenerator generator = KeyGenerator.getInstance("AES");
         generator.init(128); // The AES key size in number of bits
 
-        User admin = new User(UUID.randomUUID().toString(), company.getCid(), Role.ADMIN);
+        User admin = new User(UUID.randomUUID().toString(), company.getId(), Role.ADMIN);
         admin.setAppKey(Base64.getEncoder().encodeToString(generator.generateKey().getEncoded()));
-        userRepository.save(admin);
+        admin = userRepository.save(admin);
 
         CompanyResponseModel companyResponseModel = new CompanyResponseModel(company.getDomain(), company.getCid(), admin);
         return new ResponseEntity<>(companyResponseModel, HttpStatus.OK);
@@ -65,8 +68,8 @@ public class AppController {
         if (admin == null)
             throw new InvalidAppKeyException(signUpModel.getAppKey()+" is invalid!");
 
-        User user = new User(signUpModel.getUserId(), admin.getCid(), Role.USER);
-        userRepository.save(user);
+        User user = new User(signUpModel.getUserId(), admin.getCompanyId(), Role.USER);
+        user = userRepository.saveAndFlush(user);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -82,8 +85,8 @@ public class AppController {
             throw new InvalidAppKeyException(appKey+" is invalid!");
 
         UserSignUpResponseModel model = new UserSignUpResponseModel(admin.getUserId(), admin.getRole(),
-                admin.getAppKey(), admin.getCid());
-        model.setSubordinates(userRepository.findUsersByCidAndRole(admin.getCid(), Role.USER));
+                admin.getAppKey(), admin.getCompanyId());
+        model.setSubordinates(userRepository.findUsersByCompanyIdAndRole(admin.getCompanyId(), Role.USER));
         return new ResponseEntity<>(model, HttpStatus.OK);
     }
 

@@ -2,18 +2,16 @@ package com.rls.ids.entities;
 
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Validated
-@IdClass(User.CompositeKey.class)
 public class User extends BaseEntity{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     @NotNull
     @Column(name = "user_id")
     private String userId;
@@ -23,14 +21,14 @@ public class User extends BaseEntity{
     @Column(name = "app_key")
     private String appKey;
 
-    @Id
     @NotNull
-    private String cid;
+    @Column(name = "company_id")
+    private int companyId;
 
     public User() {}
-    public User(String userId, String cid, String role) {
+    public User(String userId, int cid, String role) {
         this.userId = userId;
-        this.cid = cid;
+        this.companyId = cid;
         this.role = role;
     }
 
@@ -58,32 +56,19 @@ public class User extends BaseEntity{
         this.appKey = appKey;
     }
 
-    public String getCid() {
-        return cid;
+    public int getCompanyId() {
+        return companyId;
     }
 
-    public void setCid(String cid) {
-        this.cid = cid;
+    public void setCompanyId(int cid) {
+        this.companyId = cid;
     }
 
-    static class CompositeKey implements Serializable {
-        private String cid;
-        private String userId;
+    public int getId() {
+        return id;
+    }
 
-        public String getCid() {
-            return cid;
-        }
-
-        public void setCid(String cid) {
-            this.cid = cid;
-        }
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
+    public void setId(int id) {
+        this.id = id;
     }
 }
