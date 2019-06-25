@@ -1,5 +1,7 @@
 package com.rls.ids.entities;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jdk.jfr.Timestamp;
 import org.springframework.validation.annotation.Validated;
 
@@ -9,13 +11,12 @@ import java.util.Date;
 
 @Entity
 @Validated
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Company extends BaseEntity {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private String cid;
 
     @Column(unique = true, nullable = false)
     @NotBlank
@@ -48,14 +49,6 @@ public class Company extends BaseEntity {
 
     public void setDeletedAt(Date deletedAt) {
         this.deletedAt = deletedAt;
-    }
-
-    public String getCid() {
-        return cid;
-    }
-
-    public void setCid(String cid) {
-        this.cid = cid;
     }
 
     public int getId() {

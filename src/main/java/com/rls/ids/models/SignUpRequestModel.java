@@ -1,9 +1,12 @@
 package com.rls.ids.models;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 import javax.validation.constraints.NotBlank;
 
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class SignUpRequestModel {
-    @NotBlank
     private String appKey;
     @NotBlank
     private String userId;

@@ -1,5 +1,7 @@
 package com.rls.ids.entities;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
@@ -7,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Validated
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class User extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +26,7 @@ public class User extends BaseEntity{
 
     @NotNull
     @Column(name = "company_id")
+    @MapKey
     private int companyId;
 
     public User() {}

@@ -6,6 +6,7 @@ import org.springframework.util.MultiValueMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -19,5 +20,13 @@ public class UserRepositoryImpl implements ExtendedUserRepository {
                 RequestParamsToSQLConverter.getSQLQuery(requestParams, "u");
 
         return em.createNativeQuery(query, User.class).getResultList();
+    }
+
+    @Override
+    public List getUserWithCompanyByAppKey(String appKey) {
+        String query = "SELECT u.user_id, u.role, c.name AS company_name, c.id AS company_id, c.domain FROM user u JOIN company c WHERE app_key='"+appKey+"'";
+
+        Query queryObj = em.createNativeQuery(query);
+        return queryObj.getResultList();
     }
 }

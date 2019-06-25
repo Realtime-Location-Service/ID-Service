@@ -1,5 +1,7 @@
 package com.rls.ids.entities;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -12,6 +14,7 @@ import java.util.Date;
 
 @MappedSuperclass
 @EntityListeners({AuditingEntityListener.class})
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 abstract class BaseEntity {
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
