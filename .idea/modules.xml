@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sazid1462.ID-Service.iml" filepath="$PROJECT_DIR$/.idea/modules/sazid1462.ID-Service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sazid1462.ID-Service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/sazid1462.ID-Service.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/sazid1462.ID-Service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/sazid1462.ID-Service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rls42.ID-Service.iml" filepath="$PROJECT_DIR$/.idea/modules/rls42.ID-Service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rls42.ID-Service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/rls42.ID-Service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/rls42.ID-Service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/rls42.ID-Service.test.iml" />
     </modules>
   </component>
 </project>

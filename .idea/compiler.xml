@@ -6,6 +6,8 @@
       <module name="com.rls.ids.ID-Service.test" target="1.8" />
       <module name="ID-Service.main" target="1.8" />
       <module name="ID-Service.test" target="1.8" />
+      <module name="rls42.ID-Service.main" target="1.8" />
+      <module name="rls42.ID-Service.test" target="1.8" />
       <module name="sazid1462.ID-Service.main" target="1.8" />
       <module name="sazid1462.ID-Service.test" target="1.8" />
     </bytecodeTargetLevel>
