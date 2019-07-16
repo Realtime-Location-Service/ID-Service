@@ -7,8 +7,23 @@ services:
       - "./db_data:/var/lib/mysql"
     environment:
       - "MYSQL_ROOT_PASSWORD=root"
-      - "MYSQL_DATABASE=rlsstore"
-      - "MYSQL_USER=rls"
+      - "MYSQL_DATABASE=ids_db"
+      - "MYSQL_USER=ids_user"
       - "MYSQL_PASSWORD=12345678"
     ports:
       - "3306:3306"
+
+  id_service:
+    container_name: id_service
+    image: rls42/id-service:1.0.0
+    volumes:
+      - "./initdb.sql:/app/initdb.sql"
+      - - "./logs:/app/lib/logs"
+    environment:
+      - "SERVER_PORT=7001"
+      - "SPRING_PROFILES_ACTIVE=dev"
+      - "SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/ids_db"
+      - "SPRING_DATASOURCE_USERNAME=ids_user"
+      - "SPRING_DATASOURCE_PASSWORD=12345678"
+    ports:
+      - "7001:7001"

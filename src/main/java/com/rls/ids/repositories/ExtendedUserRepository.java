@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ExtendedUserRepository {
     List findAllPaged(MultiValueMap<String, String> requestParams);
+    List getUserWithCompanyByAppKey(String appKey);
 }

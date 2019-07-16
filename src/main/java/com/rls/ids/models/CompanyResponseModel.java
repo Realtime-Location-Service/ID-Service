@@ -1,26 +1,23 @@
 package com.rls.ids.models;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.rls.ids.entities.Company;
 import com.rls.ids.entities.User;
 
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class CompanyResponseModel {
     private String domain;
     private String companyId;
+    private String companyName;
     private User admin;
 
     public CompanyResponseModel() { }
 
-    public CompanyResponseModel(String domain, String companyId, User admin) {
-        this.domain = domain;
-        this.companyId = companyId;
+    public CompanyResponseModel(Company company, User admin) {
+        this.domain = company.getDomain();
+        this.companyName = company.getName();
         this.admin = admin;
-    }
-
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
     }
 
     public String getDomain() {
@@ -37,5 +34,13 @@ public class CompanyResponseModel {
 
     public void setAdmin(User admin) {
         this.admin = admin;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

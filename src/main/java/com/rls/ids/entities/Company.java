@@ -1,23 +1,22 @@
 package com.rls.ids.entities;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jdk.jfr.Timestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.validation.annotation.Validated;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Validated
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Company extends BaseEntity {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String cid;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @Column(unique = true, nullable = false)
     @NotBlank
@@ -25,6 +24,7 @@ public class Company extends BaseEntity {
 
     private String name;
     @Timestamp
+    @Temporal(TemporalType.TIMESTAMP)
     private Date deletedAt;
 
     public String getDomain() {
@@ -51,11 +51,11 @@ public class Company extends BaseEntity {
         this.deletedAt = deletedAt;
     }
 
-    public String getCid() {
-        return cid;
+    public int getId() {
+        return id;
     }
 
-    public void setCid(String cid) {
-        this.cid = cid;
+    public void setId(int id) {
+        this.id = id;
     }
 }
