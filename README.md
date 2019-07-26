@@ -60,3 +60,9 @@ locations and metadata, etc.
                }
            ]
        }
+
+## Release Notes:
+#### 1.0.1: 
+Improved error response
+#### 1.0.0: 
+Released first production version
