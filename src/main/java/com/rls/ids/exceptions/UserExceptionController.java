@@ -18,7 +18,7 @@ public class UserExceptionController extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ UserNotFoundException.class })
     public final ResponseEntity<Object> handleException(NotFoundException exception, WebRequest request) {
         ErrorResponseModel errorResponse = new ErrorResponseModel(HttpStatus.NOT_FOUND, exception.getMessage(),
-                exception.getMessage());
+                exception.getMessage(), request);
         return handleExceptionInternal(exception, errorResponse, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
         // return new RsponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
@@ -28,7 +28,7 @@ public class UserExceptionController extends ResponseEntityExceptionHandler {
             InvalidAppKeyException.class, MissingHeaderException.class, AlreadyExistsException.class })
     public final ResponseEntity<Object> handleException(BadRequestException exception, WebRequest request) {
         ErrorResponseModel errorResponse = new ErrorResponseModel(HttpStatus.BAD_REQUEST, exception.getMessage(),
-                exception.getMessage());
+                exception.getMessage(), request);
         return handleExceptionInternal(exception, errorResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
         // return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
@@ -36,7 +36,7 @@ public class UserExceptionController extends ResponseEntityExceptionHandler {
     @ExceptionHandler({ Exception.class })
     public ResponseEntity<Object> handleDefault(Exception exception, WebRequest request) {
         ErrorResponseModel errorResponse = new ErrorResponseModel(HttpStatus.INTERNAL_SERVER_ERROR,
-                exception.getMessage(), exception.getMessage());
+                exception.getMessage(), exception.getMessage(), request);
         return handleExceptionInternal(exception, errorResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR,
                 request);
         // return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);

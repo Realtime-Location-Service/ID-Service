@@ -15,7 +15,8 @@ services:
 
   id_service:
     container_name: id_service
-    image: rls42/id-service:1.0.1
+    image: rls42/id-service:1.1.0
+    network_mode: host
     volumes:
       - "./initdb.sql:/app/initdb.sql"
       - "./logs:/app/lib/logs"
