@@ -17,10 +17,11 @@ public class UserResolveResponseModel {
     private String role;
     private List<User> subordinates;
 
-    public UserResolveResponseModel(){}
+    public UserResolveResponseModel() {
+    }
 
-    public UserResolveResponseModel(List<java.util.Map.Entry> adminWithCompany) {
-        for (Map.Entry entry: adminWithCompany){
+    public UserResolveResponseModel(List<java.util.Map.Entry<String, Object>> adminWithCompany) {
+        for (Map.Entry<String, Object> entry : adminWithCompany) {
             if ("company_name".equals(entry.getKey())) {
                 companyName = (String) entry.getValue();
             } else if ("domain".equals(entry.getKey())) {
