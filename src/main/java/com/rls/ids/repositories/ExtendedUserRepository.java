@@ -4,7 +4,10 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.List;
 
+import com.rls.ids.entities.User;
+
 public interface ExtendedUserRepository {
-    List findAllPaged(MultiValueMap<String, String> requestParams);
-    List getUserWithCompanyByAppKey(String appKey);
+    List<User> findAllPaged(MultiValueMap<String, String> requestParams);
+
+    List<User> getUserWithCompanyByAppKey(String appKey);
 }

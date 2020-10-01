@@ -2,7 +2,6 @@ package com.rls.ids.entities;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import jdk.jfr.Timestamp;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
@@ -23,7 +22,7 @@ public class Company extends BaseEntity {
     private String domain;
 
     private String name;
-    @Timestamp
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date deletedAt;
 

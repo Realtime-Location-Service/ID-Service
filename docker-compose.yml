@@ -1,8 +1,8 @@
-version: '3.3'
+version: "3.3"
 
 services:
   mysql:
-    image: mysql:latest
+    image: mysql
     volumes:
       - "./db_data:/var/lib/mysql"
     environment:
@@ -15,10 +15,11 @@ services:
 
   id_service:
     container_name: id_service
-    image: rls42/id-service:1.0.1
+    image: rls42/id-service:1.1.0
+    network_mode: host
     volumes:
       - "./initdb.sql:/app/initdb.sql"
-      - - "./logs:/app/lib/logs"
+      - "./logs:/app/lib/logs"
     environment:
       - "SERVER_PORT=7001"
       - "SPRING_PROFILES_ACTIVE=dev"

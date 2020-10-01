@@ -6,7 +6,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.4.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.3.4.RELEASE")
         // https://mvnrepository.com/artifact/com.palantir.gradle.docker/gradle-docker
         classpath(group: 'com.palantir.gradle.docker', name: 'gradle-docker', version: '0.22.1')
     }
@@ -23,7 +23,7 @@ apply plugin: 'com.palantir.docker'
 
 bootJar {
     baseName = 'id-service'
-    version =  '1.0.1'
+    version =  '1.0.2'
 }
 
 repositories {
@@ -53,6 +53,12 @@ docker {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
+    compile group: 'org.hibernate', name: 'hibernate-validator', version: '6.1.5.Final'
+
+    // https://mvnrepository.com/artifact/javax.validation/validation-api
+    compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     // JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
@@ -66,6 +72,9 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.9.7")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5:2.9.7")
 
-    testCompile("junit:junit")
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
+
+test {
+	useJUnitPlatform()
 }

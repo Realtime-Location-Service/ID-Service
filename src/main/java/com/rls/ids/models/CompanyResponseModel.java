@@ -8,16 +8,26 @@ import com.rls.ids.entities.User;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class CompanyResponseModel {
     private String domain;
-    private String companyId;
+    private int companyId;
     private String companyName;
     private User admin;
 
-    public CompanyResponseModel() { }
+    public CompanyResponseModel() {
+    }
 
     public CompanyResponseModel(Company company, User admin) {
         this.domain = company.getDomain();
+        this.companyId = company.getId();
         this.companyName = company.getName();
         this.admin = admin;
+    }
+
+    public int getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(int companyId) {
+        this.companyId = companyId;
     }
 
     public String getDomain() {
