@@ -65,6 +65,11 @@ locations and metadata, etc.
 
 ## Release Notes
 
+### 1.1.0
+
+1. Upgraded libraries and dependencies.
+2. Improved error response
+
 ### 1.0.1
 
 Improved error response
